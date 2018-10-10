@@ -49,6 +49,7 @@ class Student
     student.name = row[1]
     student.grade = row[2]
     student
+    binding.pry
   end
 
   def self.find_by_name(name)
