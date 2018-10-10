@@ -37,12 +37,15 @@ class Student
       @id = DB[:conn].execute("SELECT last_insert_rowid() FROM students")[0][0]
   end
 
-  def self.create(name, grade)
-    student = Student.new(name, grade)
+  def self.create(id = nil, name, grade)
+    student = Student.new(id = nil, name, grade)
     student.save
     student
   end
 
+  def self.new_from_db(row)
+
+  end
   def self.find_by_name(name)
     sql = "SELECT * FROM students WHERE name = ? LIMIT 1;"
     result = DB[:conn].execute(sql, name)[0]
