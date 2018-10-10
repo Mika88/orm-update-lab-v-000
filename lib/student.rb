@@ -43,25 +43,9 @@ class Student
     student
   end
 
-  def self.new_from_db(row)
-    student = Student.new(id, name, grade)
-    binding.pry
-    student.id = row[0]
-    student.name = row[1]
-    student.grade = row[2]
-    student
-  end
-
   def self.find_by_name(name)
-    sql = <<-SQL
-      SELECT *
-      FROM students
-      WHERE name = ?
-      LIMIT 1;
-    SQL
-
-    DB[:conn].execute(sql, name).map do |row|
-        self.new_from_db(row)
-      end.first
-    end
+    sql = "SELECT * FROM songs WHERE name = ? LIMIT 1;"
+    result = DB[:conn].execute(sql, name)[0]
+    Student.new(result[0], result[1], result[2])
   end
+end
